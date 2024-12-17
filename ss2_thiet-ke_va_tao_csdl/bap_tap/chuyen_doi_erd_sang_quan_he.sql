@@ -1,71 +1,72 @@
+drop database if exists quan_li_don_hang;
 create database quan_li_don_hang;
 use quan_li_don_hang;
 
-create table phieuxuat(
-    soPX int not null primary key,
-    ngayxuat date 
+create table phieu_xuat(
+    so_phieu_xuat int not null primary key,
+    ngay_xuat date not null
 );
 
-create table vattu(
-    maVTU int not null primary key,
-    tenVTU varchar (200) 
+create table vat_tu(
+    ma_vat_tu int not null primary key,
+    ten_vat_tu varchar (200) not null
 );
 
-create table donDH(
-    soDH int not null primary key,
-    ngayDH date
+create table don_dat_hang(
+    so_don_hang int not null primary key,
+    ngay_dat_hang date not null
 );
 
-create table phieunhap(
-    soPN int not null primary key,
-    ngaynhap date
+create table phieu_nhap(
+    so_phieu_nhap int not null primary key,
+    ngay_nhap date not null
 );
 
-create table nhaCC(
-    maNCC int not null primary key,
-    tenNCC varchar (200),
-    diachi varchar (200)
+create table nha_cung_cap(
+    ma_nha_cung_cap int not null primary key,
+    ten_nah_cung_cap varchar (200) not null,
+    dia_chi varchar (200) not null
 );
 
-create table nhaCC_sdt(
-    maNCC int not null,
-    sdt varchar (200) not null,
-    primary key (maNCC, sdt),
-    foreign key (maNCC) references nhaCC (maNCC)
+create table nha_cung_cap_sdt(
+    ma_nha_cung_cap int not null,
+    sdt varchar (15) not null,
+    primary key (ma_nha_cung_cap, sdt),
+    foreign key (ma_nha_cung_cap) references nha_cung_cap (ma_nha_cung_cap)
 );
 
-create table chitietphiexuat(
-    soPX int not null,
-    maVTU int not null,
-    DGXuat decimal (10, 2),
-    SLXuat int,
-    primary key (soPX, maVTU),
-    foreign key (soPX) references phieuxuat (soPX),
-    foreign key (maVTU) references vattu (maVTU)
+create table chi_tiet_phieu_xuat(
+    so_phieu_xuat int not null,
+    ma_vat_tu int not null,
+    d_g_xuat decimal (10, 2),
+    so_luong_xuat int not null,
+    primary key (so_phieu_xuat, ma_vat_tu),
+    foreign key (so_phieu_xuat) references phieu_xuat (so_phieu_xuat),
+    foreign key (ma_vat_tu) references vat_tu (ma_vat_tu)
 );
 
-create table chitietphieunhap(
-    maVTU int not null,
-    soPN int not null,
-    DGNhap decimal (10, 2),
-    SLNhap int,
-    primary key (maVTU, soPN),
-    foreign key (soPN) references phieunhap (soPN),
-    foreign key (maVTU) references vattu(maVTU)
+create table chi_tiet_phieu_nhap(
+    ma_vat_tu int not null,
+    so_phieu_nhap int not null,
+    d_g_nhap decimal (10, 2),
+    so_luong_nhap int not null,
+    primary key (ma_vat_tu, so_phieu_nhap),
+    foreign key (so_phieu_nhap) references phieu_nhap (so_phieu_nhap),
+    foreign key (ma_vat_tu) references vat_tu(ma_vat_tu)
 );
 
-create table chitietdondathang(
-    maVTU int not null,
-    soDH int not null,
-    primary key (maVTU, soDH),
-    foreign key (soDH) references donDH(soDH),
-    foreign key (maVTU) references vattu(maVTU)
+create table chi_tiet_don_dat_hang(
+    ma_vat_tu int not null,
+    so_don_hang int not null,
+    primary key (ma_vat_tu, so_don_hang),
+    foreign key (so_don_hang) references don_dat_hang(so_don_hang),
+    foreign key (ma_vat_tu) references vat_tu(ma_vat_tu)
 );
 
-create table cungcap(
-    maNCC int not null,
-    soDH int not null,
-    primary key (maNCC, soDH),
-    foreign key (maNCC) references nhaCC(maNCC),
-    foreign key (soDH) references donDH(soDH)
+create table cung_cap(
+    ma_nha_cung_cap int not null,
+    so_don_hang int not null,
+    primary key (ma_nha_cung_cap, so_don_hang),
+    foreign key (ma_nha_cung_cap) references nha_cung_cap(ma_nha_cung_cap),
+    foreign key (so_don_hang) references don_dat_hang(so_don_hang)
 );

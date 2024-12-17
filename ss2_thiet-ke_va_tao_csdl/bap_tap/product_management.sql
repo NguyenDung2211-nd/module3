@@ -1,32 +1,32 @@
-DROP DATABASE IF EXISTS management_product;
+drop database if exists management_product;
 create database management_product;
 use management_product;
 
 create table customers(
-cID int auto_increment primary key,
-cName varchar(50) not null,
-cAge int not null
+customer_id int auto_increment primary key,
+customer_name varchar(50) not null,
+customer_age int not null
 );
 
 create table orders(
-oID int auto_increment primary key,
-cID int,
-oDate date not null,
-oTotalPrice decimal(10, 2),
-foreign key fk1_cus_odr(cID) references customers(cID) 
+order_id int auto_increment primary key,
+customer_id int,
+order_date date not null,
+order_total_price decimal(10, 2),
+foreign key fk1_cus_odr(customer_id) references customers(customer_id) 
 );
 
 create table products(
-pID int auto_increment primary key,
-pName varchar(50) not null,
-pPrice float not null
+product_id int auto_increment primary key,
+product_name varchar(50) not null,
+product_price float not null
 );
 
-create table orderDetail(
-oID int,
-pID int,
-odQTY int not null,
-primary key(oID, pID),
-foreign key fk1_odr_odt(oID) references orders(oID),
-foreign key fk1_prd_odt(pID) references products(pID)
+create table orders_detail(
+order_id int,
+product_id int,
+order_quantity int not null,
+primary key(order_id, product_id),
+foreign key fk1_odr_odt(order_id) references orders(order_id),
+foreign key fk1_prd_odt(product_id) references products(product_id)
 );
