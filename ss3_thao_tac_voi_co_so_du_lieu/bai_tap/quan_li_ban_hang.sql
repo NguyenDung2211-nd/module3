@@ -61,7 +61,7 @@ set odr.order_total_price = (
 )
 limit 1;
 select 
-    order_id AS order_id, 
+    order_id as order_id, 
     order_date as order_date, 
     order_total_price as order_total_price 
 from orders;
