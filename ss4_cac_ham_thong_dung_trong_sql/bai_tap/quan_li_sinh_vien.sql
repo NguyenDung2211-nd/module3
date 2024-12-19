@@ -65,13 +65,13 @@ values (1, 'CF', 5, 1),
  
 select st.student_id, st.student_name, avg(m.mark) as diem_trung_binh
 from students st join marks m on st.student_id = m.student_id
-group by st.student_id, st.student_name
+group by st.student_id
 having avg(m.mark) > 15;
 
 select st.student_id, st.student_name, avg(mark)
 from students st 
 join marks m on st.student_id = m.student_id
-group by st.student_id, st.student_name
+group by st.student_id
 having avg(mark) >= all (select avg(mark) from marks group by marks.student_id);
 
 select sub_id, sub_name, credit
@@ -87,9 +87,8 @@ select st.student_id, st.student_name, st.address, st.phone,
 avg(m.mark) as diem_trung_binh
 from students st
 join marks m on st.student_id = m.student_id
-group by st.student_id, st.student_name, st.address, st.phone
+group by st.student_id
 order by diem_trung_binh desc;
-
 
 
 

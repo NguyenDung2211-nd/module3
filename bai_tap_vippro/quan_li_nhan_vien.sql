@@ -189,22 +189,92 @@ values
     (3, 5, 1), 
     (3, 1, 2), 
     (3, 2, 2);
-  
+ 
+ -- 2
 select * from nhan_vien
 where (ten_nhan_vien like "H%" or ten_nhan_vien like "T%" or ten_nhan_vien like "K%")
 and (ten_nhan_vien) <= 15;
 
+-- 3
 select * from khach_hang
 where timestampdiff(year, ngay_sinh, curdate()) between 18 and 50
-and dia_chi_khach_hang in ('Đà nẵng', 'Quảng Trị');
+and dia_chi_khach_hang in ("Đà nẵng", "Quảng Trị");
 
-select khach_hang.ten_khach_hang, loai_khach.ten_loai_khach, COUNT(hop_dong.id_hop_dong) AS so_lan_dat_phong
+-- 4
+select khach_hang.ten_khach_hang, loai_khach.ten_loai_khach, COUNT(hop_dong.id_hop_dong) as so_lan_dat_phong
 from khach_hang
 join loai_khach on khach_hang.id_loai_khach = loai_khach.id_loai_khach
 join hop_dong on khach_hang.id_khach_hang = hop_dong.id_khach_hang
-where loai_khach.ten_loai_khach = 'Diamond'
+where loai_khach.ten_loai_khach = "Diamond"
 group by khach_hang.id_khach_hang
 order by so_lan_dat_phong asc;
+
+-- 6
+select
+dich_vu.id_dich_vu,
+dich_vu.ten_dich_vu,
+dich_vu.dien_tich,
+dich_vu.chi_phi_thue,
+loai_dich_vu.ten_loai_dich_vu
+from dich_vu
+join loai_dich_vu on dich_vu.id_loai_dich_vu = loai_dich_vu.id_loai_dich_vu
+left join hop_dong on dich_vu.id_dich_vu = hop_dong.id_dich_vu
+and hop_dong.ngay_lam_hop_dong between "2019-01-01" and "2019-03-31"
+where hop_dong.id_hop_dong is null
+order by dich_vu.id_dich_vu;
+
+-- 7
+select distinct
+    dich_vu.id_dich_vu, 
+    dich_vu.ten_dich_vu, 
+    dich_vu.dien_tich, 
+    dich_vu.so_nguoi_toi_da, 
+    dich_vu.chi_phi_thue, 
+    loai_dich_vu.ten_loai_dich_vu
+from dich_vu
+join loai_dich_vu on dich_vu.id_loai_dich_vu = loai_dich_vu.id_loai_dich_vu
+join hop_dong on dich_vu.id_dich_vu = hop_dong.id_dich_vu
+where year(hop_dong.ngay_lam_hop_dong) = 2018 
+and dich_vu.id_dich_vu not in (
+    select distinct hop_dong.id_dich_vu 
+    from hop_dong 
+    where year(hop_dong.ngay_lam_hop_dong) = 2019
+);
+
+-- 8
+select distinct ten_khach_hang from khach_hang;
+
+select ten_khach_hang from khach_hang
+group by ten_khach_hang;
+
+select ten_khach_hang from khach_hang kh1
+where exists(
+select 1
+from khach_hang kh2
+where kh1.ten_khach_hang = kh2.ten_khach_hang
+)
+group by ten_khach_hang;
+
+-- 9
+select 
+    month(hd.ngay_lam_hop_dong) as thang, 
+    count(distinct hd.id_khach_hang) as so_luong_khach_hang, 
+    sum(hd.tong_tien) as tong_doanh_thu
+from 
+    hop_dong hd
+where 
+    year(hd.ngay_lam_hop_dong) = 2019
+group by 
+    month(hd.ngay_lam_hop_dong)
+order by 
+    thang;
+
+
+
+
+
+
+
 
 
 
