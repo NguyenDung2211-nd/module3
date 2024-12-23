@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .col-2 {
+            width: 25%;
+        }
+
+        .col-3 {
+            width: 50%;
+            height: 635px;
+        }
+
+        .col-1 {
+            width: 100%;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 5px;
+        }
+
+        .row::after {
+            clear: both;
+            display: block;
+            content: "";
+        }
+
+        .menu {
+            background: #1d1c1c;
+            margin-top: 2px;
+        }
+
+        .menu li {
+            float: left;
+            position: relative;
+            width: 100px;
+            height: 38px;
+            list-style: none;
+            background: #1d1c1c;
+            color: white;
+            line-height: 30px;
+            text-align: center;
+            margin-top: 2px;
+        }
+
+        .menu ul ul {
+            position: absolute;
+            padding: 0;
+            visibility: hidden;
+        }
+
+        .menu ul li:hover ul {
+            visibility: visible;
+        }
+
+        .menu li:hover {
+            background: black;
+        }
+
+        .body-right {
+            background: white;
+        }
+
+        .body-left {
+            background: #dfe6e9;
+        }
+
+        .body-left {
+            height: 635px;
+        }
+
+        .body-right {
+            height: 635px;
+        }
+
+        .ads {
+            background: #dfe6e9;
+            margin: 10px;
+            padding: 10px;
+        }
+
+        @media only screen and (max-width: 480px) {
+            .col-2, .col-3, .col-1 {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div class="col-1 menu">
+        <ul>
+            <li>Logo</li>
+            <li>Home
+                <ul>
+                    <li><a>Link</a></li>
+                    <li><a>Link</a></li>
+                    <li><a>Link</a></li>
+                </ul>
+            </li>
+            <li>About</li>
+            <li>Projects</li>
+            <li>Contact</li>
+            <li style="float: right">Login</li>
+        </ul>
+    </div>
+</div>
+<div class="row" style="height: 635px">
+    <div class="col-2 body-left">
+    </div>
+    <div class="col-3 body">
+        <h1>Welcome</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet pretium urna.
+            Vivamus venenatis velit nec neque ultricies, eget elementum magna tristique. Quisque vehicula,
+            risus eget aliquam placerat, purus leo tincidunt eros, eget luctus quam orci in velit. Praesent
+            scelerisque tortor sed accumsan convallis.</p>
+        <hr>
+        <h2>Test</h2>
+        <p>Lorem ispsum...</p>
+    </div>
+    <div class="col-2 body-right" style="float: right">
+        <div class="ads">
+            <p style="text-align: center">ADS</p>
+        </div>
+        <div class="ads">
+            <p style="text-align: center">ADS</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-1 footer" style="background: gray">
+        <p style="text-align: center">Footer test</p>
+    </div>
+</div>
+</body>
+</html>
