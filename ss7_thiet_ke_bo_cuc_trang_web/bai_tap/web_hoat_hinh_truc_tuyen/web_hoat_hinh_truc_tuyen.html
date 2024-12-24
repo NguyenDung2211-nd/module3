@@ -42,9 +42,21 @@
             border: 6px solid #e8dfdf;
             margin-top: 2px;
         }
-        @media only screen and (max-width: 480px) {
-            .col-1, .col-2, .col-3 {
+        @media (max-width: 768px) {
+            .col-2, .col-3 {
                 width: 100%;
+            }
+            iframe {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header, .menu, .footer {
+                font-size: 14px;
+            }
+            iframe {
+                height: 180px;
             }
         }
     </style>

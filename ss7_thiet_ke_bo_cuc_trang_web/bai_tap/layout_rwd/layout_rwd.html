@@ -15,7 +15,7 @@
 
         .col-3 {
             width: 50%;
-            height: 635px;
+
         }
 
         .col-1 {
@@ -64,15 +64,7 @@
         }
 
         .body-left {
-            background: #dfe6e9;
-        }
-
-        .body-left {
-            height: 635px;
-        }
-
-        .body-right {
-            height: 635px;
+            background: white;
         }
 
         .ads {
@@ -81,11 +73,44 @@
             padding: 10px;
         }
 
-        @media only screen and (max-width: 480px) {
-            .col-2, .col-3, .col-1 {
+        @media (max-width: 768px) {
+            .col-2 {
                 width: 100%;
             }
+
+            .col-3 {
+                width: 100%;
+            }
+
+            .menu ul {
+                flex-direction: column;
+            }
+
+            .menu li {
+                width: 100%;
+                text-align: left;
+                padding-left: 15px;
+            }
         }
+
+        @media (max-width: 480px) {
+            .menu ul {
+                flex-direction: column;
+            }
+
+            .menu li {
+                padding: 8px 15px;
+            }
+
+            .ads {
+                margin: 5px;
+            }
+
+            .footer {
+                font-size: 12px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -107,7 +132,7 @@
         </ul>
     </div>
 </div>
-<div class="row" style="height: 635px">
+<div class="row">
     <div class="col-2 body-left">
     </div>
     <div class="col-3 body">
