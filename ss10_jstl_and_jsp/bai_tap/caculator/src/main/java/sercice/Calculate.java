@@ -1,3 +1,5 @@
+package sercice;
+
 public class Calculate {
     public static float calculate(float firstOperand, float secondOperand, char operator ){
         switch (operator){
