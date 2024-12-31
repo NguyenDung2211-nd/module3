@@ -1,6 +1,7 @@
 package controller;
 
 import entity.User;
+import exception.EntityNotFoundException;
 import service.impl.UserService;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 @WebServlet(name = "UserController", value = "/user")
@@ -24,22 +26,19 @@ public class UserController extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        List<User> users;
+        List<User> users = new LinkedList<>();
         String message = null;
-        switch (action) {
-            case "sort":
-                users = userService.sortByName();
-                break;
-            default:
-                if (countrySearch != null && !countrySearch.isEmpty()) {
+        try {
+            switch (action) {
+                case "sort":
+                    users = userService.sortByName();
+                    break;
+                default:
                     users = userService.searchByCountry(countrySearch);
-                    if (users == null) {
-                        message = "Không tìm thấy người dùng với quốc gia: " + countrySearch;
-                    }
-                } else {
-                    users = userService.getAll();
-                }
-                break;
+                    break;
+            }
+        } catch (EntityNotFoundException e){
+            message = e.getMessage();
         }
         req.setAttribute("users", users);
         req.setAttribute("countrySearch", countrySearch);

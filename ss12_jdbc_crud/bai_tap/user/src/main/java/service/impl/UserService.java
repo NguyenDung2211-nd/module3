@@ -1,25 +1,31 @@
 package service.impl;
 
 import entity.User;
+import exception.EntityNotFoundException;
 import repository.UserRepository;
 import service.IService;
 
-import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class UserService implements IService {
     private static UserRepository userRepository = new UserRepository();
-    @Override
-    public List<User> getAll() {
+
+    private List<User> getAll() {
         List<User> users = userRepository.getAll();
-        return users;
+        return users.isEmpty() ? Collections.emptyList() : users;
     }
 
     @Override
     public List<User> searchByCountry(String country) {
-        List<User> users = userRepository.searchByCountry(country);
+        List<User> users;
+        if (country == null || country.isEmpty()) {
+            users = getAll();
+        } else {
+            users = userRepository.searchByCountry(country);
+        }
         if (users.isEmpty()) {
-            return null;
+            throw new EntityNotFoundException("Không có dữ liệu.");
         }
         return users;
     }

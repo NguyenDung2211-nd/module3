@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserRepository {
-    private static List<User> users = new ArrayList<>();
     public List<User> getAll(){
         PreparedStatement statement = null;
         List<User> users = new ArrayList<>();
@@ -26,7 +26,7 @@ public class UserRepository {
         }catch(Exception e){
             throw new RuntimeException("Error closing statement:" + e);
         }
-        return users;
+        return users.isEmpty() ? Collections.emptyList() : users;
     }
 
     public List<User> searchByCountry(String country) {
